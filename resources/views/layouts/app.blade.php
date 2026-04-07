@@ -63,11 +63,22 @@
                         </div>
 
                         <!-- User Profile & Logout (Desktop) -->
-                        <div class="hidden sm:flex sm:items-center">
-                            <span class="text-on-surface mr-4 font-label font-bold">{{ auth()->user()->name }}</span>
+                        <div class="hidden sm:flex sm:items-center space-x-4">
+                            <a href="{{ route('profile') }}" class="flex items-center group">
+                                @if (auth()->user()->avatar_path)
+                                    <img class="h-8 w-8 rounded-full object-cover mr-2 group-hover:opacity-80 transition-opacity" src="{{ asset('storage/' . auth()->user()->avatar_path) }}" alt="{{ auth()->user()->name }}">
+                                @else
+                                    <div class="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-display font-bold uppercase mr-2 group-hover:bg-primary-200 transition-colors">
+                                        {{ substr(auth()->user()->name, 0, 1) }}
+                                    </div>
+                                @endif
+                                <span class="text-on-surface font-label font-bold group-hover:text-primary-500 transition-colors">{{ auth()->user()->name }}</span>
+                            </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="text-gray-400 hover:text-primary-500 font-label font-semibold transition-colors">Log Out</button>
+                                <button type="submit" class="text-gray-400 hover:text-red-500 font-label font-semibold transition-colors" title="Sair">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                                </button>
                             </form>
                         </div>
 
@@ -120,12 +131,26 @@
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-surface-low bg-surface-low/30">
-                        <div class="px-7 py-3">
-                            <div class="font-label font-bold text-base text-on-surface">{{ auth()->user()->name }}</div>
-                            <div class="font-sans font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
+                        <div class="px-7 py-3 flex items-center">
+                            <a href="{{ route('profile') }}" class="flex items-center">
+                                @if (auth()->user()->avatar_path)
+                                    <img class="h-10 w-10 rounded-full object-cover mr-3" src="{{ asset('storage/' . auth()->user()->avatar_path) }}" alt="{{ auth()->user()->name }}">
+                                @else
+                                    <div class="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-display font-bold uppercase mr-3">
+                                        {{ substr(auth()->user()->name, 0, 1) }}
+                                    </div>
+                                @endif
+                                <div>
+                                    <div class="font-label font-bold text-base text-on-surface">{{ auth()->user()->name }}</div>
+                                    <div class="font-sans font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
+                                </div>
+                            </a>
                         </div>
 
                         <div class="mt-3 space-y-1 px-4 pb-4">
+                            <a href="{{ route('profile') }}" class="block w-full text-left pl-3 pr-4 py-3 rounded-xl text-base font-label font-bold text-gray-600 hover:bg-surface-low transition-colors">
+                                {{ __('Meu Perfil') }}
+                            </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="block w-full text-left pl-3 pr-4 py-3 rounded-xl text-base font-label font-bold text-red-500 hover:bg-red-50 transition-colors">

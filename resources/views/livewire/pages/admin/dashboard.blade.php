@@ -74,9 +74,13 @@
                         <div class="space-y-1 px-4 pb-4">
                             @forelse($recentActivity as $log)
                                 <div class="p-4 flex items-center rounded-2xl hover:bg-surface transition-colors {{ $loop->index % 2 === 0 ? 'bg-surface-lowest' : 'bg-surface-low/30' }}">
-                                    <div class="h-10 w-10 rounded-full bg-secondary-500/10 flex-shrink-0 flex items-center justify-center text-secondary-600 font-display font-bold uppercase mr-4">
-                                        {{ substr($log->user->name ?? '?', 0, 1) }}
-                                    </div>
+                                    @if(optional($log->user)->avatar_path)
+                                        <img src="{{ asset('storage/' . $log->user->avatar_path) }}" class="h-10 w-10 rounded-full object-cover mr-4 shadow-sm" alt="Avatar">
+                                    @else
+                                        <div class="h-10 w-10 rounded-full bg-secondary-500/10 flex-shrink-0 flex items-center justify-center text-secondary-600 font-display font-bold uppercase mr-4 shadow-sm">
+                                            {{ substr($log->user->name ?? '?', 0, 1) }}
+                                        </div>
+                                    @endif
                                     <div class="flex-1 min-w-0">
                                         <p class="font-sans text-sm text-on-surface leading-snug">
                                             <span class="font-bold">{{ $log->user->name ?? 'Usuário' }}</span> 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
 use App\Models\Traits\HasCompany;
 use App\Observers\UserObserver;
 use Database\Factories\UserFactory;
@@ -11,16 +12,17 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['company_id', 'name', 'username', 'email', 'password', 'role', 'points_balance'])]
+#[Fillable(['company_id', 'name', 'username', 'email', 'password', 'avatar_path', 'role', 'points_balance'])]
 #[Hidden(['password', 'remember_token'])]
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasUuids, HasCompany;
+    use HasCompany, HasFactory, HasUuids, Notifiable;
 
     /**
      * Get the attributes that should be cast.
@@ -32,16 +34,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'role' => \App\Enums\UserRole::class,
+            'role' => UserRole::class,
         ];
     }
 
-    public function sentFeedbacks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function sentFeedbacks(): HasMany
     {
         return $this->hasMany(Feedback::class, 'sender_id');
     }
 
-    public function receivedFeedbacks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function receivedFeedbacks(): HasMany
     {
         return $this->hasMany(Feedback::class, 'receiver_id');
     }

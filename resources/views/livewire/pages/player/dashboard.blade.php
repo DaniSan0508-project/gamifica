@@ -70,9 +70,13 @@
                         <div class="bg-surface-lowest rounded-3xl p-2">
                             @forelse ($activityFeed as $log)
                                 <div class="p-4 flex items-start space-x-4 rounded-2xl hover:bg-surface transition-colors {{ $loop->index % 2 === 0 ? 'bg-surface-lowest' : 'bg-surface-low/30' }}">
-                                    <div class="h-10 w-10 rounded-full bg-secondary-500/10 flex-shrink-0 flex items-center justify-center text-secondary-600 font-display font-bold uppercase">
-                                        {{ substr($log->user->name ?? '?', 0, 1) }}
-                                    </div>
+                                    @if(optional($log->user)->avatar_path)
+                                        <img src="{{ asset('storage/' . $log->user->avatar_path) }}" class="h-10 w-10 rounded-full object-cover flex-shrink-0 shadow-sm" alt="Avatar">
+                                    @else
+                                        <div class="h-10 w-10 rounded-full bg-secondary-500/10 flex-shrink-0 flex items-center justify-center text-secondary-600 font-display font-bold uppercase shadow-sm">
+                                            {{ substr($log->user->name ?? '?', 0, 1) }}
+                                        </div>
+                                    @endif
                                     <div class="flex-1 min-w-0 pt-0.5">
                                         <p class="font-sans text-sm text-on-surface leading-snug">
                                             <span class="font-bold">{{ (optional($log->user)->id === auth()->id()) ? 'Você' : ($log->user->name ?? 'Usuário') }}</span> 
