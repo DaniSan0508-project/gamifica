@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kinetic Luminary | Employee Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#5e00c4",
+                    "surface-bright": "#f4f7f9",
+                    "outline-variant": "#aaaeb0",
+                    "on-tertiary-fixed": "#004819",
+                    "surface-container-highest": "#d8dee1",
+                    "error-container": "#f74b6d",
+                    "tertiary-dim": "#005d22",
+                    "surface-tint": "#0846ed",
+                    "primary-container": "#859aff",
+                    "tertiary-fixed-dim": "#4bee74",
+                    "secondary-fixed": "#ddc8ff",
+                    "primary-fixed": "#859aff",
+                    "outline": "#737779",
+                    "on-surface-variant": "#585c5e",
+                    "on-primary": "#f2f1ff",
+                    "surface-container": "#e4e9eb",
+                    "primary-dim": "#003cd3",
+                    "on-error-container": "#510017",
+                    "error": "#b41340",
+                    "surface-variant": "#d8dee1",
+                    "tertiary": "#006a28",
+                    "primary": "#0846ed",
+                    "on-tertiary": "#cfffce",
+                    "inverse-primary": "#6d88ff",
+                    "on-tertiary-fixed-variant": "#006827",
+                    "tertiary-container": "#5cfd80",
+                    "on-error": "#ffefef",
+                    "on-background": "#2b2f31",
+                    "secondary-container": "#ddc8ff",
+                    "surface-container-low": "#edf1f3",
+                    "inverse-surface": "#0b0f10",
+                    "on-secondary-fixed-variant": "#6a00da",
+                    "secondary-dim": "#6800d8",
+                    "surface": "#f4f7f9",
+                    "on-surface": "#2b2f31",
+                    "surface-dim": "#cfd5d8",
+                    "on-secondary": "#f9efff",
+                    "inverse-on-surface": "#9a9d9f",
+                    "on-secondary-fixed": "#460095",
+                    "secondary": "#751fe7",
+                    "on-primary-fixed": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#005d22",
+                    "primary-fixed-dim": "#718bff",
+                    "on-primary-container": "#001867",
+                    "secondary-fixed-dim": "#d2b7ff",
+                    "error-dim": "#a70138",
+                    "surface-container-high": "#dee3e6",
+                    "background": "#f4f7f9",
+                    "on-primary-fixed-variant": "#00207e",
+                    "tertiary-fixed": "#5cfd80"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .font-label { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(24px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-shift { transition: background-color 0.3s ease; }
+    </style>
+</head>
+<body class="bg-surface text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(8,70,237,0.06)] flex justify-between items-center px-6 py-4 max-w-[1920px] mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent font-headline tracking-tight">Kinetic Luminary</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-600 font-label text-sm uppercase tracking-wider py-1" href="#">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-500 transition-colors duration-200 font-label text-sm uppercase tracking-wider py-1" href="#">Quests</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-500 transition-colors duration-200 font-label text-sm uppercase tracking-wider py-1" href="#">Leaderboard</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group hidden sm:block">
+<div class="absolute inset-y-0 left-3 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="bg-surface-container border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary w-64 transition-all" placeholder="Search milestones..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 hover:text-blue-500 transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-slate-500 hover:text-blue-500 transition-colors"><span class="material-symbols-outlined">emoji_events</span></button>
+<button class="p-2 text-slate-500 hover:text-blue-500 transition-colors"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<img alt="User profile" class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="Professional headshot of a smiling young male professional in a smart casual outfit with soft office lighting background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG7bZsA9A1ff6pK6kYrXJmnRO786qWLuvDaXtuj9JgdLv1jxAn-0matVG27MNqwxn09sKBtQIOjFJOEhOzRE5O4-F3hkDFVc4sk7DUnNEP-88F83n9gs-1d0jvZxl1i4p2HL_YoDbux4R-NDG1PnRUv5JEkicoHquCF0clKgeC36xeU6XE3W4P4cT4SJDP4Hu6SSRS7u-JDhXAirsqzTvpcnb_UVaE7uP1MOEw865p3-pnU-dh7AXxvOdHwxJlCcGEONv0kUqUsw"/>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full p-4 gap-2 bg-slate-50 dark:bg-slate-950 w-64 pt-24 z-40">
+<div class="mb-6 px-4">
+<div class="flex items-center gap-3">
+<img alt="Alex Rivers Avatar" class="w-12 h-12 rounded-xl object-cover ring-2 ring-primary/10" data-alt="Close-up portrait of a friendly man with short dark hair in a bright modern environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt1H_zBygMiq470RPMWF4fGjkwGkHy-uRUK5w-Lr-uwW6G664R-nRmWVV1ZeSmUpH80yxcMo_nm4XqI8SlZIZV5RUdVt-pWJBbCF6G32gqooII9Eg6yOcMS372x2o9xNE2BYvGBdXFg4Uw6l9ZkgdB30MbjAZBelii2UFuxNsNZUEKriC5GT5bF8jl2ote0L7mjIF1kvvxaTgZrfOJ_F-M1DvDR3s8P6gZ5njoeIT4zLLfu5rYZTLPl32mkYiM9Hp0n6TqLkQ-BA"/>
+<div>
+<h3 class="font-headline font-bold text-on-background">Alex Rivers</h3>
+<p class="text-[10px] font-label font-semibold uppercase tracking-widest text-slate-400">Lvl 42 • 12,450 pts</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label font-semibold uppercase text-xs tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 dark:text-slate-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">bolt</span>
+<span class="font-label font-semibold uppercase text-xs tracking-wide">Quests</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 dark:text-slate-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">military_tech</span>
+<span class="font-label font-semibold uppercase text-xs tracking-wide">Leaderboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 dark:text-slate-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">redeem</span>
+<span class="font-label font-semibold uppercase text-xs tracking-wide">Rewards</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 dark:text-slate-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label font-semibold uppercase text-xs tracking-wide">Team</span>
+</a>
+</nav>
+<button class="w-full py-4 px-4 bg-gradient-to-br from-primary to-primary-dim text-white rounded-xl font-headline font-bold text-sm tracking-tight mb-4 active:scale-95 transition-transform">
+            Launch Quest
+        </button>
+<div class="border-t border-slate-200 dark:border-slate-800 pt-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-400 hover:text-blue-500 transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-label font-semibold uppercase text-[10px] tracking-widest">Help</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-400 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="font-label font-semibold uppercase text-[10px] tracking-widest">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-24 p-6 min-h-screen">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Bento Hero Section -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- User Profile Card -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-3xl p-8 flex flex-col md:flex-row gap-8 items-center relative overflow-hidden shadow-[0_8px_32px_rgba(8,70,237,0.04)]">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-[160px] text-primary">auto_awesome</span>
+</div>
+<div class="relative">
+<div class="w-32 h-32 rounded-full border-4 border-primary-container p-1 bg-white shadow-xl">
+<img alt="Alex Rivers" class="w-full h-full rounded-full object-cover" data-alt="Modern close-up professional portrait of a tech professional in a bright studio environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDr9JnBm4b0qSqAuAXM80k_KFVSYxoJa5e0XSu0yoW-Yxzoyq8doD6FTtL_8Jy-tPPFnfbx4y4TVkz7KREghm2xfrvmslj8ZCV2-daFH5uxnPUmoAjijgz-Vw64grTSz02cm5790uDz4-9l5ADWT3Vuj9K11LY-P_XNV7ajoRvTwNRQS7nqResyEJywqucpow0shEqd5gWVkbFouQFiZs65k2sLSQx6ue5InulqqQlL1dY8rNTYyUC5AGXdK806VcE8lpCRA8i_Ag"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-secondary text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg border-2 border-white">
+                            PRO
+                        </div>
+</div>
+<div class="flex-1 text-center md:text-left space-y-4">
+<div>
+<span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-primary mb-1 block">Level Progress</span>
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-background">Elite Kineticist <span class="text-secondary">Lvl 42</span></h1>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="font-label text-sm font-bold text-slate-500">12,450 / 15,000 XP</span>
+<span class="font-headline text-lg font-bold text-primary">83%</span>
+</div>
+<div class="h-4 w-full bg-surface-container-high rounded-full overflow-hidden p-1">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full shadow-[0_0_12px_rgba(8,70,237,0.4)] transition-all duration-1000" style="width: 83%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Points Card -->
+<div class="md:col-span-4 bg-gradient-to-br from-secondary to-secondary-dim rounded-3xl p-8 text-white flex flex-col justify-between shadow-2xl relative overflow-hidden">
+<div class="absolute -bottom-10 -right-10 opacity-20">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div class="relative z-10">
+<p class="font-label text-xs font-bold uppercase tracking-[0.2em] opacity-80">Total Luminary Points</p>
+<h2 class="font-headline text-6xl font-extrabold mt-2">12,450</h2>
+</div>
+<div class="relative z-10 flex items-center gap-2 mt-8">
+<span class="material-symbols-outlined text-tertiary-container">trending_up</span>
+<span class="font-label text-sm font-bold">+1,240 this week</span>
+</div>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-4">
+<div class="flex items-center justify-between">
+<div class="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-xl text-blue-600">
+<span class="material-symbols-outlined">task_alt</span>
+</div>
+<span class="text-xs font-bold font-label text-tertiary">+5 today</span>
+</div>
+<div>
+<h4 class="font-label text-xs font-bold text-slate-400 uppercase tracking-widest">Tasks Completed</h4>
+<p class="font-headline text-3xl font-bold">142</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-4">
+<div class="flex items-center justify-between">
+<div class="p-3 bg-violet-50 dark:bg-violet-900/30 rounded-xl text-violet-600">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<span class="text-xs font-bold font-label text-secondary">3 expiring</span>
+</div>
+<div>
+<h4 class="font-label text-xs font-bold text-slate-400 uppercase tracking-widest">Active Quests</h4>
+<p class="font-headline text-3xl font-bold">08</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-4">
+<div class="flex items-center justify-between">
+<div class="p-3 bg-emerald-50 dark:bg-emerald-900/30 rounded-xl text-emerald-600">
+<span class="material-symbols-outlined">card_giftcard</span>
+</div>
+<span class="text-xs font-bold font-label text-slate-400">Available</span>
+</div>
+<div>
+<h4 class="font-label text-xs font-bold text-slate-400 uppercase tracking-widest">Rewards Earned</h4>
+<p class="font-headline text-3xl font-bold">24</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm space-y-4">
+<div class="flex items-center justify-between">
+<div class="p-3 bg-amber-50 dark:bg-amber-900/30 rounded-xl text-amber-600">
+<span class="material-symbols-outlined">military_tech</span>
+</div>
+<span class="text-xs font-bold font-label text-amber-600">Global Rank</span>
+</div>
+<div>
+<h4 class="font-label text-xs font-bold text-slate-400 uppercase tracking-widest">Global Ranking</h4>
+<p class="font-headline text-3xl font-bold">#402</p>
+</div>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Recent Achievements -->
+<div class="lg:col-span-8 space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="font-headline text-2xl font-bold tracking-tight">Recent Achievements</h3>
+<button class="text-primary font-label text-sm font-bold hover:underline">View All Collection</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+<!-- Badge 1 -->
+<div class="group bg-surface-container-low p-6 rounded-3xl text-center space-y-4 hover:bg-white transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+<div class="w-20 h-20 mx-auto bg-primary-container rounded-2xl flex items-center justify-center text-white rotate-3 group-hover:rotate-6 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg">Early Bird</h4>
+<p class="text-xs font-label text-slate-500 mt-1">Logged in before 8 AM for 5 consecutive days.</p>
+</div>
+<div class="pt-2">
+<span class="text-[10px] font-label font-bold text-tertiary uppercase tracking-widest bg-tertiary-container/30 px-3 py-1 rounded-full">Completed</span>
+</div>
+</div>
+<!-- Badge 2 -->
+<div class="group bg-surface-container-low p-6 rounded-3xl text-center space-y-4 hover:bg-white transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+<div class="w-20 h-20 mx-auto bg-secondary-container rounded-2xl flex items-center justify-center text-secondary rotate-[-3deg] group-hover:rotate-[-6deg] transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg">Top Seller</h4>
+<p class="text-xs font-label text-slate-500 mt-1">Exceeded monthly quota by over 25%.</p>
+</div>
+<div class="pt-2">
+<span class="text-[10px] font-label font-bold text-tertiary uppercase tracking-widest bg-tertiary-container/30 px-3 py-1 rounded-full">Completed</span>
+</div>
+</div>
+<!-- Badge 3 -->
+<div class="group bg-surface-container-low p-6 rounded-3xl text-center space-y-4 hover:bg-white transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+<div class="w-20 h-20 mx-auto bg-outline-variant/20 rounded-2xl flex items-center justify-center text-slate-400 rotate-6 group-hover:rotate-12 transition-transform">
+<span class="material-symbols-outlined text-4xl">group_work</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg text-slate-400">Team Player</h4>
+<p class="text-xs font-label text-slate-400 mt-1">Assist 10 colleagues with project roadblocks.</p>
+</div>
+<div class="pt-2">
+<div class="w-full bg-slate-200 h-1 rounded-full mt-2">
+<div class="bg-slate-400 h-full w-[60%] rounded-full"></div>
+</div>
+<span class="text-[10px] font-label font-bold text-slate-400 uppercase tracking-widest mt-2 block">6 / 10 Assists</span>
+</div>
+</div>
+</div>
+<!-- Upcoming Rewards Spotlight -->
+<div class="bg-secondary-fixed rounded-[2rem] p-8 relative overflow-hidden shadow-lg">
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
+<div class="flex flex-col md:flex-row gap-8 items-center relative z-10">
+<div class="w-32 h-32 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/30 shadow-inner shrink-0">
+<span class="material-symbols-outlined text-5xl text-on-secondary-fixed">confirmation_number</span>
+</div>
+<div class="space-y-3">
+<span class="font-label text-xs font-bold text-on-secondary-fixed uppercase tracking-[0.2em]">Next Unlock</span>
+<h4 class="font-headline text-2xl font-extrabold text-on-secondary-fixed">Premium Lounge Access</h4>
+<p class="text-on-secondary-fixed-variant text-sm font-medium leading-relaxed max-w-md">Reach Lvl 45 to unlock exclusive corporate lounge access and priority booking for meeting pods.</p>
+<button class="bg-on-secondary-fixed text-white font-label text-xs font-bold uppercase tracking-widest px-6 py-2 rounded-lg mt-2">Quest Details</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Leaderboard -->
+<div class="lg:col-span-4 space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="font-headline text-2xl font-bold tracking-tight">Top Rankers</h3>
+<span class="font-label text-[10px] font-bold text-slate-400 uppercase tracking-widest">March 2024</span>
+</div>
+<div class="bg-surface-container-low rounded-3xl p-2 space-y-1">
+<!-- Rank 1 -->
+<div class="bg-white rounded-2xl p-4 shadow-xl border-l-4 border-amber-400 flex items-center gap-4 -mx-2 scale-105 z-10 relative">
+<div class="w-10 text-center font-headline font-black text-2xl text-amber-500">1</div>
+<img alt="Sarah Chen" class="w-12 h-12 rounded-full object-cover" data-alt="Professional headshot of a woman with long dark hair, smiling confidently with bright studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6FtT5F5JKNKl92ysHNGRclDXbhctc_Ppwvk3VWFMkjLfvZompLz8ftfrVIzr3D8QvQZV0Hx2SfRWfcNVLLe6Pc3qzU-uxDpOu01j06nSQUwwnVmcyeKdqe87V2lH9Xtdv98yDv1CaWYEX4MXdRrwtUSholMA-RUSl1PbC96X5KdKcOSR4WjM4CrILJ4siL38cpbBtDorh3CZUDhM3Pn2O9O1VR_jxlRI5QGg5cTjH5V9JP_2wZt3bHQTOejpZCxdmZRpwGrubyw"/>
+<div class="flex-1">
+<h5 class="font-headline font-bold text-sm">Sarah Chen</h5>
+<p class="text-[10px] font-label font-bold text-slate-400 uppercase tracking-tight">18,240 XP</p>
+</div>
+<span class="material-symbols-outlined text-amber-500">military_tech</span>
+</div>
+<!-- Rank 2 -->
+<div class="bg-transparent hover:bg-white transition-all rounded-2xl p-4 flex items-center gap-4">
+<div class="w-10 text-center font-headline font-bold text-lg text-slate-400">2</div>
+<img alt="Marcus Thorne" class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of a male professional with glasses in a modern office space, soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJU8d8LK2TWYksQ5KK8rjDOgkYBQ7fRQZRtrm8EYQoPmTJt4T2eCtaFJWxw9SZ3l9SiBa9YD2rywMLUYMhJo52AsWKVPRMAaTM67nrd5F73ff8FBYJRLAN7-W7seLRzOO3Y3dWn9qsUZoEF9STKK4RyvdsZAbTp0yXVST7ChM1_AbtVQGtOqV1zev5YTvHHVLX0qzHq_kRkinI-BQdGGAumty4xSK3W6Q7PI5DuPYycvU6ejpBrhQsQjoHK0QdcR4oG4p4hC3sQQ"/>
+<div class="flex-1">
+<h5 class="font-headline font-bold text-sm">Marcus Thorne</h5>
+<p class="text-[10px] font-label font-bold text-slate-400 uppercase tracking-tight">15,900 XP</p>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="bg-transparent hover:bg-white transition-all rounded-2xl p-4 flex items-center gap-4">
+<div class="w-10 text-center font-headline font-bold text-lg text-slate-400">3</div>
+<img alt="Elena Rodriguez" class="w-12 h-12 rounded-full object-cover" data-alt="Professional photo of a smiling woman with glasses and wavy hair in a creative workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYKvHJK6mR6KO5x8Xft0HN5HMz62V9gYFzjPTI1f9JiXn8NR_XSLuTA8aGArb5euMHbWHOG4Zf_wotUKVXbydrVdYiY2xUc6o7cOGl50oGD82vOB61ClPB_7plZXjyuZm1ztyfs2eUDlVRfAJrjIcRDVm-EXKFu19UbnoMKwzxcocAkNrYa2lsKGNQPkEW1OQ5Hat5_yPyeN6t6p6O6Xd6Ujocp3hDKgy-wceFOzB8NZzBg7eOQO3yYQsfd_z2_ahhbcrxg50PIg"/>
+<div class="flex-1">
+<h5 class="font-headline font-bold text-sm">Elena Rodriguez</h5>
+<p class="text-[10px] font-label font-bold text-slate-400 uppercase tracking-tight">14,820 XP</p>
+</div>
+</div>
+</div>
+<!-- Personalized Advice -->
+<div class="bg-primary-container p-6 rounded-3xl space-y-4">
+<div class="flex items-center gap-3 text-on-primary-container">
+<span class="material-symbols-outlined">lightbulb</span>
+<h4 class="font-headline font-bold">Pro Tip</h4>
+</div>
+<p class="text-on-primary-container/80 text-sm leading-relaxed">
+                            Complete the <span class="font-bold underline">"Sprint Review"</span> quest by Friday to earn a <span class="font-bold">2x multiplier</span> for all points earned this weekend!
+                        </p>
+<button class="w-full py-3 bg-white text-primary font-label text-[10px] font-black uppercase tracking-widest rounded-xl shadow-sm">Review Quest</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 glass-panel border-t-0 shadow-[0_-8px_32px_rgba(8,70,237,0.06)] flex justify-around items-center p-4 z-50">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-[10px] font-label font-bold uppercase tracking-tight">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">bolt</span>
+<span class="text-[10px] font-label font-bold uppercase tracking-tight">Quests</span>
+</a>
+<div class="flex flex-col items-center -mt-8">
+<button class="bg-primary text-white w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg shadow-primary/40 rotate-45 active:scale-90 transition-transform">
+<span class="material-symbols-outlined -rotate-45 text-3xl">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">military_tech</span>
+<span class="text-[10px] font-label font-bold uppercase tracking-tight">Rank</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-label font-bold uppercase tracking-tight">Profile</span>
+</a>
+</nav>
+</body></html>
